@@ -1,0 +1,13 @@
+from keras.models import Sequential   #to initialize neural network 
+from keras.layers import Convolution2D #step 1 convolution
+from keras.layers import MaxPooling2D# step 2 Pooling
+from keras.layers import Flatten#step 3 Flattening convert pool featurmap into large featurw vector
+from keras.layers import Dense#to add fully connected network to ann
+
+#step1 initalizing convolution2D network
+classifier=Sequential()
+
+#step 1 -Convultion
+#convultion layer caompoase of all these fearuere maps
+classifier.add(Convolution2D(32,3,3, input_shape=(64,64,1),activation='relu'))
+#acctivation function to make sure ther is no non linearity
