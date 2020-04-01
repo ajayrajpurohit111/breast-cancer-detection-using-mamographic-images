@@ -1,0 +1,53 @@
+from keras.models import Sequential   #to initialize neural network 
+from keras.layers import Convolution2D #step 1 convolution
+from keras.layers import MaxPooling2D# step 2 Pooling
+from keras.layers import Flatten#step 3 Flattening convert pool featurmap into large featurw vector
+from keras.layers import Dense#to add fully connected network to ann
+
+#step1 initalizing convolution2D network
+classifier=Sequential()
+
+#step 1 -Convultion
+#convultion layer caompoase of all these fearuere maps
+classifier.add(Convolution2D(32,3,3, input_shape=(64,64,1),activation='relu'))
+#acctivation function to make sure ther is no non linearity
+#step 2 -Pooling
+
+classifier.add(MaxPooling2D(pool_size=(2,2)))
+#step 3 Flattening
+classifier.add(Flatten())
+#step 4 fully connected player
+classifier.add(Dense(output_dim=128,activation='relu'))
+classifier.add(Dense(output_dim=3,activation='sigmoid')) 
+#compiling the cnn
+classifier.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
+
+#part 2-Fittinf the cnn to image
+from keras.preprocessing.image import ImageDataGenerator
+
+train_datagen = ImageDataGenerator(
+        rescale=1./255,
+        shear_range=0.2,
+        zoom_range=0.2,
+         horizontal_flip=True)
+
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+training_set = train_datagen.flow_from_directory(
+                                                    'dataset/training_set',
+                                                    target_size=(64,64),
+                                                    batch_size=32,
+                                                    class_mode='binary')
+
+test_set = test_datagen.flow_from_directory(
+        'dataset/test_set',
+        target_size=(64,64),
+        batch_size=32,
+        class_mode='binary')
+
+classifier.fit_generator(
+        training_set,
+        steps_per_epoch=271,
+        epochs=25,
+        validation_data=test_set,
+        validation_steps=51)
