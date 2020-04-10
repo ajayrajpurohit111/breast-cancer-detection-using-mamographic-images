@@ -18,7 +18,7 @@ classifier.add(MaxPooling2D(pool_size=(2,2)))
 classifier.add(Flatten())
 #step 4 fully connected player
 classifier.add(Dense(output_dim=128,activation='relu'))
-classifier.add(Dense(output_dim=3,activation='sigmoid')) 
+classifier.add(Dense(output_dim=1,activation='sigmoid')) 
 #compiling the cnn
 classifier.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 
