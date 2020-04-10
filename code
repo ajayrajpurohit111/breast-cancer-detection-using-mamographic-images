@@ -10,6 +10,7 @@ classifier=Sequential()
 #step 1 -Convultion
 #convultion layer caompoase of all these fearuere maps
 classifier.add(Convolution2D(32,3,3, input_shape=(64,64,1),activation='relu'))
+classifier.add(Convolution2D(32,3,3, input_shape=(64,64,1),activation='relu'))
 #activation function to make sure ther is no non linearity
 #step 2 -Pooling
 
